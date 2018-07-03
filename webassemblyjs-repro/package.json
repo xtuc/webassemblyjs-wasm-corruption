@@ -1,0 +1,15 @@
+{
+  "name": "webassemblyjs-wasm-corruption",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tim Hambourger",
+  "license": "MIT",
+  "dependencies": {
+    "@webassemblyjs/wasm-edit": "^1.5.12",
+    "@webassemblyjs/wasm-parser": "^1.5.12"
+  }
+}

@@ -1,0 +1,10 @@
+[package]
+name = "wasm-src"
+version = "0.0.1"
+authors = ["Tim Hambourger <tim.hambourger@gmail.com>"]
+
+[dependencies]
+get37 = { path = "./get37" }
+get37_no_struct = { path = "./get37-no-struct" }
+
+[workspace]
