@@ -9,7 +9,6 @@ const WASM = /\.wasm$/;
 const
     wasmInputDir = path.resolve(__dirname, 'wasm-input'),
     wasmOutputDir = path.resolve(__dirname, 'wasm-output'),
-    regexFilter = process.argv[2] ? new RegExp(process.argv[2]) : WASM,
     transformFns = [
         addAssignExports,
         oneCharExports,
@@ -20,13 +19,22 @@ const
 // Set up output directory
 if (!fs.existsSync(wasmOutputDir)) fs.mkdirSync(wasmOutputDir);
 
-const testResults = fs.readdirSync(wasmInputDir)
-    // Only care about .wasm files
-    .filter(name => regexFilter.test(name))
+const
+    inputFilesFromCLI = process.argv.slice(2),
+    inputFiles = inputFilesFromCLI.length ? inputFilesFromCLI :
+        fs.readdirSync(wasmInputDir)
+        // Only care about .wasm files
+        .filter(name => WASM.test(name))
+        .map(name => path.resolve(wasmInputDir, name));
+
+const testResults = inputFiles
     // Read each file
     .map(name => {
-        const buf = fs.readFileSync(path.resolve(wasmInputDir, name));
-        return { name, bin: buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) };
+        const buf = fs.readFileSync(name);
+        return {
+            name: path.basename(name),
+            bin: buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength)
+        };
     })
     // Cross files with transformFns
     .reduce((testCases, file) => {
