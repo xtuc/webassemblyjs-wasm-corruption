@@ -1,6 +1,7 @@
 const
     path = require('path'),
     fs = require('fs'),
+    { shrinkPaddedLEB128 } = require('@webassemblyjs/wasm-opt'),
     { decode } = require('@webassemblyjs/wasm-parser'),
     { editWithAST } = require('@webassemblyjs/wasm-edit');
 
@@ -30,10 +31,12 @@ const
 const testResults = inputFiles
     // Read each file
     .map(name => {
-        const buf = fs.readFileSync(name);
+        const
+            buf = fs.readFileSync(name),
+            bin = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
         return {
             name: path.basename(name),
-            bin: buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength)
+            bin: preprocess(bin)
         };
     })
     // Cross files with transformFns
@@ -46,9 +49,13 @@ const testResults = inputFiles
 Promise.all(testResults).then(results => results.forEach(logTestResult));
 
 function runTestCase({ file, transformFn }) {
+    const resultName = `${file.name} -- ${transformFn.name}`;
+
+    console.log(`running case ${resultName}`);
+
     const
         testResult = {
-            name: `${file.name} -- ${transformFn.name}`,
+            name: resultName,
             wasmParserError: null,
             nativeWasmError: null
         },
@@ -128,4 +135,10 @@ function getAST(bin) {
         ignoreDataSection: true,
         ignoreCodeSection: true,
     });
+}
+
+// From https://github.com/xtuc/webassemblyjs/blob/babd73f8734dea82f8c1e617001f97af09dd2c32/packages/wasm-edit/src/index.js#L15-L18
+function preprocess(ab) {
+    const optBin = shrinkPaddedLEB128(new Uint8Array(ab));
+    return optBin.buffer;
 }
