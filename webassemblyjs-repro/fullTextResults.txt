@@ -2,22 +2,23 @@ running case add.wasm -- addAssignExports
 running case add.wasm -- oneCharExports
 running case add.wasm -- removeExports
 running case add.wasm -- renameImports
+running case add_long_export_name.wasm -- addAssignExports
+running case add_long_export_name.wasm -- oneCharExports
+running case add_long_export_name.wasm -- removeExports
+running case add_long_export_name.wasm -- renameImports
 running case call.wasm -- addAssignExports
 running case call.wasm -- oneCharExports
 running case call.wasm -- removeExports
 running case call.wasm -- renameImports
 running case get37_debug.wasm -- addAssignExports
 running case get37_debug.wasm -- oneCharExports
-LEB128 encoding changed, this might lead to bugs
 running case get37_debug.wasm -- removeExports
-LEB128 encoding changed, this might lead to bugs
 running case get37_debug.wasm -- renameImports
 running case get37_debug_bg.wasm -- addAssignExports
 running case get37_debug_bg.wasm -- oneCharExports
 running case get37_debug_bg.wasm -- removeExports
 running case get37_debug_bg.wasm -- renameImports
 running case get37_no_struct_debug.wasm -- addAssignExports
-LEB128 encoding changed, this might lead to bugs
 running case get37_no_struct_debug.wasm -- oneCharExports
 running case get37_no_struct_debug.wasm -- removeExports
 running case get37_no_struct_debug.wasm -- renameImports
@@ -26,7 +27,6 @@ running case get37_no_struct_debug_bg.wasm -- oneCharExports
 running case get37_no_struct_debug_bg.wasm -- removeExports
 running case get37_no_struct_debug_bg.wasm -- renameImports
 running case get37_no_struct_release.wasm -- addAssignExports
-LEB128 encoding changed, this might lead to bugs
 running case get37_no_struct_release.wasm -- oneCharExports
 running case get37_no_struct_release.wasm -- removeExports
 running case get37_no_struct_release.wasm -- renameImports
@@ -36,9 +36,7 @@ running case get37_no_struct_release_bg.wasm -- removeExports
 running case get37_no_struct_release_bg.wasm -- renameImports
 running case get37_release.wasm -- addAssignExports
 running case get37_release.wasm -- oneCharExports
-LEB128 encoding changed, this might lead to bugs
 running case get37_release.wasm -- removeExports
-LEB128 encoding changed, this might lead to bugs
 running case get37_release.wasm -- renameImports
 running case get37_release_bg.wasm -- addAssignExports
 running case get37_release_bg.wasm -- oneCharExports
@@ -46,101 +44,75 @@ running case get37_release_bg.wasm -- removeExports
 running case get37_release_bg.wasm -- renameImports
 running case julia_wasm_bg.wasm -- addAssignExports
 running case julia_wasm_bg.wasm -- oneCharExports
-LEB128 encoding changed, this might lead to bugs
 running case julia_wasm_bg.wasm -- removeExports
-LEB128 encoding changed, this might lead to bugs
 running case julia_wasm_bg.wasm -- renameImports
 running case julia_wasm_bg_no_debug_names.wasm -- addAssignExports
 running case julia_wasm_bg_no_debug_names.wasm -- oneCharExports
-LEB128 encoding changed, this might lead to bugs
 running case julia_wasm_bg_no_debug_names.wasm -- removeExports
-LEB128 encoding changed, this might lead to bugs
 running case julia_wasm_bg_no_debug_names.wasm -- renameImports
 add.wasm -- addAssignExports   -- PASS
 add.wasm -- oneCharExports     -- PASS
 add.wasm -- removeExports      -- PASS
 add.wasm -- renameImports      -- PASS
+add_long_export_name.wasm -- addAssignExports -- PASS
+add_long_export_name.wasm -- oneCharExports -- PASS
+add_long_export_name.wasm -- removeExports -- PASS
+add_long_export_name.wasm -- renameImports -- PASS
 call.wasm -- addAssignExports  -- PASS
 call.wasm -- oneCharExports    -- PASS
 call.wasm -- removeExports     -- PASS
 call.wasm -- renameImports     -- PASS
-get37_debug.wasm -- addAssignExports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: null
-get37_debug.wasm -- oneCharExports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: CompileError: WasmCompile: Wasm decoding failed: expected 32 bytes, fell off end @+4735
-get37_debug.wasm -- removeExports -- FAIL
-    wasm-parser error:        Error: Unexpected section: 0xc
-    native WebAssembly error: CompileError: WasmCompile: Wasm decoding failed: unknown section code #0x0c @+4725
+get37_debug.wasm -- addAssignExports -- PASS
+get37_debug.wasm -- oneCharExports -- PASS
+get37_debug.wasm -- removeExports -- PASS
 get37_debug.wasm -- renameImports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: null
+    wasm-parser error:        null
+    native WebAssembly error: CompileError: WasmCompile: Compiling wasm function #633:_ZN12wasm_bindgen5throw17hdc61958fa639e6ddE failed: call found empty stack @+89846
 get37_debug_bg.wasm -- addAssignExports -- PASS
 get37_debug_bg.wasm -- oneCharExports -- PASS
 get37_debug_bg.wasm -- removeExports -- PASS
-get37_debug_bg.wasm -- renameImports -- PASS
-get37_no_struct_debug.wasm -- addAssignExports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: CompileError: WasmCompile: Wasm decoding failed: expected 95 bytes, fell off end @+4743
-get37_no_struct_debug.wasm -- oneCharExports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: null
-get37_no_struct_debug.wasm -- removeExports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: null
+get37_debug_bg.wasm -- renameImports -- FAIL
+    wasm-parser error:        null
+    native WebAssembly error: CompileError: WasmCompile: Compiling wasm function #106:wasm_bindgen::throw::hdc61958fa639e6dd failed: call found empty stack @+14668
+get37_no_struct_debug.wasm -- addAssignExports -- PASS
+get37_no_struct_debug.wasm -- oneCharExports -- PASS
+get37_no_struct_debug.wasm -- removeExports -- PASS
 get37_no_struct_debug.wasm -- renameImports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: null
+    wasm-parser error:        null
+    native WebAssembly error: CompileError: WasmCompile: Compiling wasm function #597:_ZN60_$LT$wasm_bindgen..JsValue$u20$as$u20$core..clone..Clone$GT$5clone17h8b4eded3d9c285edE failed: set_local found empty stack @+85866
 get37_no_struct_debug_bg.wasm -- addAssignExports -- PASS
 get37_no_struct_debug_bg.wasm -- oneCharExports -- PASS
 get37_no_struct_debug_bg.wasm -- removeExports -- PASS
 get37_no_struct_debug_bg.wasm -- renameImports -- PASS
-get37_no_struct_release.wasm -- addAssignExports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: CompileError: WasmCompile: Wasm decoding failed: expected 95 bytes, fell off end @+4251
-get37_no_struct_release.wasm -- oneCharExports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: null
-get37_no_struct_release.wasm -- removeExports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: null
+get37_no_struct_release.wasm -- addAssignExports -- PASS
+get37_no_struct_release.wasm -- oneCharExports -- PASS
+get37_no_struct_release.wasm -- removeExports -- PASS
 get37_no_struct_release.wasm -- renameImports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: null
+    wasm-parser error:        null
+    native WebAssembly error: CompileError: WasmCompile: Compiling wasm function #31:_ZN12wasm_bindgen7JsValue9from_bool17h454c13d354c2856fE failed: expected 1 elements on the stack for fallthru to @1 @+5106
 get37_no_struct_release_bg.wasm -- addAssignExports -- PASS
 get37_no_struct_release_bg.wasm -- oneCharExports -- PASS
 get37_no_struct_release_bg.wasm -- removeExports -- PASS
 get37_no_struct_release_bg.wasm -- renameImports -- PASS
-get37_release.wasm -- addAssignExports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: null
-get37_release.wasm -- oneCharExports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: CompileError: WasmCompile: Wasm decoding failed: unknown section code #0x60 @+4191
-get37_release.wasm -- removeExports -- FAIL
-    wasm-parser error:        Error: Unexpected section: 0xc
-    native WebAssembly error: CompileError: WasmCompile: Wasm decoding failed: unknown section code #0x0c @+4163
+get37_release.wasm -- addAssignExports -- PASS
+get37_release.wasm -- oneCharExports -- PASS
+get37_release.wasm -- removeExports -- PASS
 get37_release.wasm -- renameImports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: null
+    wasm-parser error:        null
+    native WebAssembly error: CompileError: WasmCompile: Compiling wasm function #43:_ZN12wasm_bindgen7JsValue7as_bool17h0629678ec7ab20e8E failed: select found empty stack @+5549
 get37_release_bg.wasm -- addAssignExports -- PASS
 get37_release_bg.wasm -- oneCharExports -- PASS
 get37_release_bg.wasm -- removeExports -- PASS
 get37_release_bg.wasm -- renameImports -- PASS
 julia_wasm_bg.wasm -- addAssignExports -- PASS
-julia_wasm_bg.wasm -- oneCharExports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: CompileError: WasmCompile: Wasm decoding failed: unknown section code #0x1f @+786
-julia_wasm_bg.wasm -- removeExports -- FAIL
-    wasm-parser error:        Error: Unexpected section: 0x1b
-    native WebAssembly error: CompileError: WasmCompile: Wasm decoding failed: unknown section code #0x1b @+714
-julia_wasm_bg.wasm -- renameImports -- PASS
+julia_wasm_bg.wasm -- oneCharExports -- PASS
+julia_wasm_bg.wasm -- removeExports -- PASS
+julia_wasm_bg.wasm -- renameImports -- FAIL
+    wasm-parser error:        null
+    native WebAssembly error: CompileError: WasmCompile: Compiling wasm function #27:wasm_bindgen::throw::h4faa952a1a5d8965 failed: call found empty stack @+4586
 julia_wasm_bg_no_debug_names.wasm -- addAssignExports -- PASS
-julia_wasm_bg_no_debug_names.wasm -- oneCharExports -- FAIL
-    wasm-parser error:        Error: invalid UTF-8 encoding
-    native WebAssembly error: CompileError: WasmCompile: Wasm decoding failed: unknown section code #0x1f @+786
-julia_wasm_bg_no_debug_names.wasm -- removeExports -- FAIL
-    wasm-parser error:        Error: Unexpected section: 0x1b
-    native WebAssembly error: CompileError: WasmCompile: Wasm decoding failed: unknown section code #0x1b @+714
-julia_wasm_bg_no_debug_names.wasm -- renameImports -- PASS
+julia_wasm_bg_no_debug_names.wasm -- oneCharExports -- PASS
+julia_wasm_bg_no_debug_names.wasm -- removeExports -- PASS
+julia_wasm_bg_no_debug_names.wasm -- renameImports -- FAIL
+    wasm-parser error:        null
+    native WebAssembly error: CompileError: WasmCompile: Compiling wasm function #27:<?> failed: call found empty stack @+4586

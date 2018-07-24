@@ -106,7 +106,7 @@ function oneCharExports(bin) {
     let i = 0;
     return editWithAST(getAST(bin), bin, {
         ModuleExport(path) {
-            path.node.name = chars[i++];
+            path.node.name = chars[i++ % chars.length];
         }
     });
 }
