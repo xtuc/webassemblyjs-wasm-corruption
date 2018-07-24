@@ -36,7 +36,7 @@ const testResults = inputFiles
             bin = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
         return {
             name: path.basename(name),
-            bin: preprocess(bin)
+            bin
         };
     })
     // Cross files with transformFns
@@ -135,10 +135,4 @@ function getAST(bin) {
         ignoreDataSection: true,
         ignoreCodeSection: true,
     });
-}
-
-// From https://github.com/xtuc/webassemblyjs/blob/babd73f8734dea82f8c1e617001f97af09dd2c32/packages/wasm-edit/src/index.js#L15-L18
-function preprocess(ab) {
-    const optBin = shrinkPaddedLEB128(new Uint8Array(ab));
-    return optBin.buffer;
 }
