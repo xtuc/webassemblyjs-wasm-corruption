@@ -1,7 +1,6 @@
 const
     path = require('path'),
     fs = require('fs'),
-    { shrinkPaddedLEB128 } = require('@webassemblyjs/wasm-opt'),
     { decode } = require('@webassemblyjs/wasm-parser'),
     { editWithAST } = require('@webassemblyjs/wasm-edit');
 
