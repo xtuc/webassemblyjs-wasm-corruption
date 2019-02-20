@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@webassemblyjs/wasm-edit": "^1.8.4",
+    "@webassemblyjs/ast": "^1.8.4",
     "@webassemblyjs/wasm-parser": "^1.8.4"
   }
 }

@@ -2,7 +2,8 @@ const
     path = require('path'),
     fs = require('fs'),
     { decode } = require('@webassemblyjs/wasm-parser'),
-    { editWithAST } = require('@webassemblyjs/wasm-edit');
+    t = require('@webassemblyjs/ast'),
+    { editWithAST, addWithAST } = require('@webassemblyjs/wasm-edit');
 
 const WASM = /\.wasm$/;
 
@@ -10,6 +11,7 @@ const
     wasmInputDir = path.resolve(__dirname, 'wasm-input'),
     wasmOutputDir = path.resolve(__dirname, 'wasm-output'),
     transformFns = [
+        addFunc,
         addAssignExports,
         oneCharExports,
         removeExports,
@@ -90,6 +92,65 @@ function pad(input, length) {
         input += ' ';
     }
     return input;
+}
+
+function getNextTypeIndex(ast) {
+    const typeSectionMetadata = t.getSectionMetadata(ast, "type");
+
+    if (typeSectionMetadata === undefined) {
+        return t.indexLiteral(0);
+    }
+
+    return t.indexLiteral(typeSectionMetadata.vectorOfSize.value);
+}
+
+function getNextFuncIndex(ast) {
+    let countImportedFunc = 0;
+
+    t.traverse(ast, {
+        ModuleImport({ node }) {
+            if (t.isFuncImportDescr(node.descr) === true) {
+                countImportedFunc++;
+            }
+        }
+    });
+
+    const funcSectionMetadata = t.getSectionMetadata(ast, "func");
+
+    if (funcSectionMetadata === undefined) {
+        return t.indexLiteral(0 + countImportedFunc);
+    }
+
+    const vectorOfSize = funcSectionMetadata.vectorOfSize.value;
+
+    return t.indexLiteral(vectorOfSize + countImportedFunc);
+}
+
+function addFunc(bin) {
+    const ast = getAST(bin);
+
+    const funcId = t.identifier("__webpack_init__");
+
+    const funcBody = [
+        t.instruction("end")
+    ];
+
+    const funcSignature = t.signature([], []);
+    const func = t.func(funcId, funcSignature, funcBody);
+
+    // Type section
+    const functype = t.typeInstruction(undefined, funcSignature);
+
+    // Func section
+    const funcindex = t.indexInFuncSection(getNextTypeIndex(ast));
+
+    // Export section
+    const moduleExport = t.moduleExport(
+        funcId.value,
+        t.moduleExportDescr("Func", getNextFuncIndex(ast))
+    );
+
+    return addWithAST(ast, bin, [func, moduleExport, funcindex, functype]);
 }
 
 function addAssignExports(bin) {
