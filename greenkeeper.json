@@ -1,0 +1,10 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "webassemblyjs-repro/package.json",
+        "webpack-repro/package.json"
+      ]
+    }
+  }
+}
