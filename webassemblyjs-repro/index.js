@@ -83,9 +83,9 @@ function logTestResult({ name, wasmParserError, nativeWasmError }) {
     if (!wasmParserError && !nativeWasmError) {
         console.log(`${pad(name, 30)} -- PASS`);
     } else {
-        console.log(`${pad(name, 30)} -- FAIL`);
-        console.log(`    wasm-parser error:        ${wasmParserError}`);
-        console.log(`    native WebAssembly error: ${nativeWasmError}`);
+        console.error(`${pad(name, 30)} -- FAIL`);
+        console.error(`    wasm-parser error:        ${wasmParserError}`);
+        console.error(`    native WebAssembly error: ${nativeWasmError}`);
     }
 }
 
