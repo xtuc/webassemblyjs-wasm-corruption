@@ -6,6 +6,7 @@ const
     { editWithAST, addWithAST } = require('@webassemblyjs/wasm-edit');
 
 const WASM = /\.wasm$/;
+let hadErrors = false;
 
 const
     wasmInputDir = path.resolve(__dirname, 'wasm-input'),
@@ -49,7 +50,13 @@ const testResults = inputFiles
     }, [])
     .map(runTestCase);
 
-Promise.all(testResults).then(results => results.forEach(logTestResult));
+Promise.all(testResults)
+    .then(results => results.forEach(logTestResult))
+    .then(() => {
+        if (hadErrors) {
+            process.exit(1);
+        }
+    });
 
 function runTestCase({ file, transformFn, ast }) {
     const resultName = `${file.name} -- ${transformFn.name}`;
@@ -86,6 +93,7 @@ function logTestResult({ name, wasmParserError, nativeWasmError }) {
         console.error(`${pad(name, 30)} -- FAIL`);
         console.error(`    wasm-parser error:        ${wasmParserError}`);
         console.error(`    native WebAssembly error: ${nativeWasmError}`);
+        hadErrors = true;
     }
 }
 
