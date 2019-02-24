@@ -11,11 +11,12 @@ const
     wasmInputDir = path.resolve(__dirname, 'wasm-input'),
     wasmOutputDir = path.resolve(__dirname, 'wasm-output'),
     transformFns = [
-        addFunc,
-        addAssignExports,
-        oneCharExports,
-        removeExports,
-        renameImports,
+        // addFunc,
+        removeStartFunc,
+        // addAssignExports,
+        // oneCharExports,
+        // removeExports,
+        // renameImports,
     ];
 
 // Set up output directory
@@ -42,14 +43,15 @@ const testResults = inputFiles
     })
     // Cross files with transformFns
     .reduce((testCases, file) => {
-        transformFns.forEach(fn => testCases.push({ file, transformFn: fn }));
+        const ast = getAST(file.bin);
+        transformFns.forEach(fn => testCases.push({ file, transformFn: fn, ast }));
         return testCases;
     }, [])
     .map(runTestCase);
 
 Promise.all(testResults).then(results => results.forEach(logTestResult));
 
-function runTestCase({ file, transformFn }) {
+function runTestCase({ file, transformFn, ast }) {
     const resultName = `${file.name} -- ${transformFn.name}`;
 
     console.log(`running case ${resultName}`);
@@ -61,7 +63,7 @@ function runTestCase({ file, transformFn }) {
             nativeWasmError: null
         },
         outputName = `${file.name.replace(WASM, '')}-${transformFn.name}.wasm`,
-        newBin = transformFn(file.bin);
+        newBin = transformFn(file.bin, ast);
 
     // Write output binary to file system for easy analysis
     fs.writeFileSync(path.resolve(wasmOutputDir, outputName), Buffer.from(newBin));
@@ -126,9 +128,15 @@ function getNextFuncIndex(ast) {
     return t.indexLiteral(vectorOfSize + countImportedFunc);
 }
 
-function addFunc(bin) {
-    const ast = getAST(bin);
+function removeStartFunc(bin, ast) {
+    return editWithAST(ast, bin, {
+        Start(path) {
+            path.remove();
+        }
+    });
+}
 
+function addFunc(bin, ast) {
     const funcId = t.identifier("__webpack_init__");
 
     const funcBody = [
@@ -153,34 +161,34 @@ function addFunc(bin) {
     return addWithAST(ast, bin, [func, moduleExport, funcindex, functype]);
 }
 
-function addAssignExports(bin) {
-    return editWithAST(getAST(bin), bin, {
+function addAssignExports(bin, ast) {
+    return editWithAST(ast, bin, {
         ModuleExport(path) {
             path.node.name += '!!';
         }
     });
 }
 
-function oneCharExports(bin) {
+function oneCharExports(bin, ast) {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let i = 0;
-    return editWithAST(getAST(bin), bin, {
+    return editWithAST(ast, bin, {
         ModuleExport(path) {
             path.node.name = chars[i++ % chars.length];
         }
     });
 }
 
-function removeExports(bin) {
-    return editWithAST(getAST(bin), bin, {
+function removeExports(bin, ast) {
+    return editWithAST(ast, bin, {
         ModuleExport(path) {
             path.remove();
         }
     });
 }
 
-function renameImports(bin) {
-    return editWithAST(getAST(bin), bin, {
+function renameImports(bin, ast) {
+    return editWithAST(ast, bin, {
         ModuleImport(path) {
             path.node.name += '!!';
         }

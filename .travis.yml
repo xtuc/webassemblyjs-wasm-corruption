@@ -1,0 +1,16 @@
+language: node_js
+
+cache:
+  yarn: true
+
+install: make install
+script: make $JOB
+
+matrix:
+  include:
+    - node_js: "10"
+      env: JOB=test
+
+before_install:
+  - npm i -g yarn
+
