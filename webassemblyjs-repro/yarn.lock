@@ -111,6 +111,13 @@
   dependencies:
     "@xtuc/ieee754" "^1.2.0"
 
+"@webassemblyjs/ieee754@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@webassemblyjs/ieee754/-/ieee754-1.9.0.tgz#15c7a0fbaae83fb26143bbacf6d6df1702ad39e4"
+  integrity sha512-dcX8JuYU/gvymzIHc9DgxTzUUTLexWwt8uCTWP3otys596io0L5aW02Gb1RjYpx2+0Jus1h4ZFqjla7umFniTg==
+  dependencies:
+    "@xtuc/ieee754" "^1.2.0"
+
 "@webassemblyjs/leb128@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/leb128/-/leb128-1.8.5.tgz#044edeb34ea679f3e04cd4fd9824d5e35767ae10"
@@ -118,10 +125,22 @@
   dependencies:
     "@xtuc/long" "4.2.2"
 
+"@webassemblyjs/leb128@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@webassemblyjs/leb128/-/leb128-1.9.0.tgz#f19ca0b76a6dc55623a09cffa769e838fa1e1c95"
+  integrity sha512-ENVzM5VwV1ojs9jam6vPys97B/S65YQtv/aanqnU7D8aSoHFX8GyhGg0CMfyKNIHBuAVjy3tlzd5QMMINa7wpw==
+  dependencies:
+    "@xtuc/long" "4.2.2"
+
 "@webassemblyjs/utf8@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/utf8/-/utf8-1.8.5.tgz#a8bf3b5d8ffe986c7c1e373ccbdc2a0915f0cedc"
   integrity sha512-U7zgftmQriw37tfD934UNInokz6yTmn29inT2cAetAsaU9YeVCveWEwhKL1Mg4yS7q//NGdzy79nlXh3bT8Kjw==
+
+"@webassemblyjs/utf8@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@webassemblyjs/utf8/-/utf8-1.9.0.tgz#04d33b636f78e6a6813227e82402f7637b6229ab"
+  integrity sha512-GZbQlWtopBTP0u7cHrEx+73yZKrQoBMpwkGEIqlacljhXCkVM1kMQge/Mf+csMJAjEdSwhOyLAS0AoR3AG5P8w==
 
 "@webassemblyjs/wasm-edit@^1.8.4":
   version "1.8.5"
@@ -158,7 +177,7 @@
     "@webassemblyjs/wasm-gen" "1.8.5"
     "@webassemblyjs/wasm-parser" "1.8.5"
 
-"@webassemblyjs/wasm-parser@1.8.5", "@webassemblyjs/wasm-parser@^1.8.4":
+"@webassemblyjs/wasm-parser@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/wasm-parser/-/wasm-parser-1.8.5.tgz#21576f0ec88b91427357b8536383668ef7c66b8d"
   integrity sha512-pi0SYE9T6tfcMkthwcgCpL0cM9nRYr6/6fjgDtL6q/ZqKHdMWvxitRi5JcZ7RI4SNJJYnYNaWy5UUrHQy998lw==
@@ -169,6 +188,18 @@
     "@webassemblyjs/ieee754" "1.8.5"
     "@webassemblyjs/leb128" "1.8.5"
     "@webassemblyjs/utf8" "1.8.5"
+
+"@webassemblyjs/wasm-parser@^1.8.4":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@webassemblyjs/wasm-parser/-/wasm-parser-1.9.0.tgz#9d48e44826df4a6598294aa6c87469d642fff65e"
+  integrity sha512-9+wkMowR2AmdSWQzsPEjFU7njh8HTO5MqO8vjwEHuM+AMHioNqSBONRdr0NQQ3dVQrzp0s8lTcYqzUdb7YgELA==
+  dependencies:
+    "@webassemblyjs/ast" "1.9.0"
+    "@webassemblyjs/helper-api-error" "1.9.0"
+    "@webassemblyjs/helper-wasm-bytecode" "1.9.0"
+    "@webassemblyjs/ieee754" "1.9.0"
+    "@webassemblyjs/leb128" "1.9.0"
+    "@webassemblyjs/utf8" "1.9.0"
 
 "@webassemblyjs/wast-parser@1.8.5":
   version "1.8.5"
